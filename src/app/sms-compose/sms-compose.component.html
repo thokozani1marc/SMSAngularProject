@@ -1,0 +1,46 @@
+<div class="container mx-auto px-4 py-8">
+  <h2 class="text-3xl font-bold mb-6">Compose SMS</h2>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div>
+      <h3 class="text-2xl font-bold mb-4">Single SMS</h3>
+      <form [formGroup]="singleSmsForm" (ngSubmit)="sendSingleSMS()" class="space-y-4">
+        <div>
+          <input formControlName="phoneNumber" placeholder="Phone Number (+27 or 0)" required class="w-full p-3 border rounded shadow-sm">
+          <small class="text-red-500" *ngIf="singleSmsForm.get('phoneNumber')?.invalid && singleSmsForm.get('phoneNumber')?.touched">
+            Please enter a valid South African phone number.
+          </small>
+        </div>
+        <div>
+          <textarea formControlName="message" placeholder="Message" required class="w-full p-3 border rounded shadow-sm h-32"></textarea>
+          <small class="text-red-500" *ngIf="singleSmsForm.get('message')?.invalid && singleSmsForm.get('message')?.touched">
+            Message is required and must be 160 characters or less.
+          </small>
+        </div>
+        <button type="submit" [disabled]="singleSmsForm.invalid" class="bg-primary text-white px-6 py-3 rounded hover:bg-blue-600 transition duration-300">Send Single SMS</button>
+      </form>
+    </div>
+
+    <div>
+      <h3 class="text-2xl font-bold mb-4">Group SMS</h3>
+      <form [formGroup]="groupSmsForm" (ngSubmit)="sendGroupSMS()" class="space-y-4">
+        <div>
+          <select formControlName="selectedGroupId" required class="w-full p-3 border rounded shadow-sm">
+            <option [value]="0" disabled>Select a group</option>
+            <option *ngFor="let group of groups" [value]="group.id">{{group.name}}</option>
+          </select>
+          <small class="text-red-500" *ngIf="groupSmsForm.get('selectedGroupId')?.invalid && groupSmsForm.get('selectedGroupId')?.touched">
+            Please select a group.
+          </small>
+        </div>
+        <div>
+          <textarea formControlName="message" placeholder="Message" required class="w-full p-3 border rounded shadow-sm h-32"></textarea>
+          <small class="text-red-500" *ngIf="groupSmsForm.get('message')?.invalid && groupSmsForm.get('message')?.touched">
+            Message is required and must be 160 characters or less.
+          </small>
+        </div>
+        <button type="submit" [disabled]="groupSmsForm.invalid" class="bg-primary text-white px-6 py-3 rounded hover:bg-blue-600 transition duration-300">Send Group SMS</button>
+      </form>
+    </div>
+  </div>
+</div>

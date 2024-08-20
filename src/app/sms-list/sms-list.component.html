@@ -1,0 +1,12 @@
+<div class="container mx-auto px-4 py-8">
+  <h2 class="text-3xl font-bold mb-6">SMS Messages</h2>
+  <ul class="space-y-4">
+    <li *ngFor="let message of messages" class="bg-white p-6 rounded shadow">
+      <div class="flex justify-between items-start mb-2">
+        <strong class="text-lg">To: {{ message.recipient }}</strong>
+        <small class="text-gray-500">{{ message.created_at | date:'medium' }}</small>
+      </div>
+      <p class="text-gray-700">{{ message.content }}</p>
+    </li>
+  </ul>
+</div>

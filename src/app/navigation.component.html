@@ -1,0 +1,39 @@
+<nav class="bg-blue-600 p-4">
+  <div class="container mx-auto flex justify-between items-center">
+    <div class="text-white font-bold text-xl">
+      <a href="#">Your Logo</a>
+    </div>
+    <div class="hidden md:flex space-x-4">
+      <a href="/contacts" class="text-white hover:bg-blue-700 px-3 py-2 rounded">Contacts</a>
+      <a href="/compose" class="text-white hover:bg-blue-700 px-3 py-2 rounded">Compose SMS</a>
+      <a href="/messages" class="text-white hover:bg-blue-700 px-3 py-2 rounded">Messages</a>
+      <a href="/account" class="text-white hover:bg-blue-700 px-3 py-2 rounded">Account</a>
+    </div>
+    <div class="md:hidden">
+      <button id="menu-toggle" class="text-white focus:outline-none">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden">
+    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      <a href="/contacts" class="text-white block hover:bg-blue-700 px-3 py-2 rounded">Contacts</a>
+      <a href="/compose" class="text-white block hover:bg-blue-700 px-3 py-2 rounded">Compose SMS</a>
+      <a href="/messages" class="text-white block hover:bg-blue-700 px-3 py-2 rounded">Messages</a>
+      <a href="/account" class="text-white block hover:bg-blue-700 px-3 py-2 rounded">Account</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  });
+</script>

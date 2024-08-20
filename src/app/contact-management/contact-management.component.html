@@ -1,0 +1,72 @@
+<div class="container mx-auto px-4 py-8">
+  <h2 class="text-3xl font-bold mb-6">Contact Management</h2>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div>
+      <h3 class="text-2xl font-bold mb-4">Add/Edit Contact</h3>
+      <form [formGroup]="contactForm" (ngSubmit)="saveContact()" class="space-y-4">
+        <div>
+          <input formControlName="name" placeholder="Name" required class="w-full p-3 border rounded shadow-sm">
+          <small class="text-red-500" *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
+            Name is required and must be at least 2 characters.
+          </small>
+        </div>
+        <div>
+          <input formControlName="phone" placeholder="Phone (+27 or 0)" required class="w-full p-3 border rounded shadow-sm">
+          <small class="text-red-500" *ngIf="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched">
+            Please enter a valid South African phone number.
+          </small>
+        </div>
+        <div>
+          <select formControlName="group_id" required class="w-full p-3 border rounded shadow-sm">
+            <option [value]="0" disabled>Select a group</option>
+            <option *ngFor="let group of groups" [value]="group.id">{{group.name}}</option>
+          </select>
+          <small class="text-red-500" *ngIf="contactForm.get('group_id')?.invalid && contactForm.get('group_id')?.touched">
+            Please select a group.
+          </small>
+        </div>
+        <div class="flex space-x-4">
+          <button type="submit" [disabled]="contactForm.invalid" class="bg-primary text-white px-6 py-3 rounded hover:bg-blue-600 transition duration-300">{{ editingContact ? 'Update' : 'Add' }} Contact</button>
+          <button *ngIf="editingContact" (click)="cancelEdit()" type="button" class="bg-gray-300 px-6 py-3 rounded hover:bg-gray-400 transition duration-300">Cancel</button>
+        </div>
+      </form>
+    </div>
+    
+    <div>
+      <h3 class="text-2xl font-bold mb-4">Contacts List</h3>
+      <ul class="space-y-3">
+        <li *ngFor="let contact of contacts" class="flex items-center justify-between bg-white p-4 rounded shadow">
+          <span>{{contact.name}} - {{contact.phone}}</span>
+          <div>
+            <button (click)="editContact(contact)" class="text-primary hover:text-blue-600 mr-3 transition duration-300">Edit</button>
+            <button (click)="deleteContact(contact.id)" class="text-red-500 hover:text-red-600 transition duration-300">Delete</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="mt-12">
+    <h3 class="text-2xl font-bold mb-4">Groups List</h3>
+    <table class="w-full bg-white shadow-md rounded">
+      <thead>
+        <tr class="bg-gray-200 text-gray-700 uppercase text-sm leading-normal">
+          <th class="py-3 px-6 text-left">ID</th>
+          <th class="py-3 px-6 text-left">Name</th>
+          <th class="py-3 px-6 text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-600 text-sm font-light">
+        <tr *ngFor="let group of groups" class="border-b border-gray-200 hover:bg-gray-100">
+          <td class="py-3 px-6 text-left whitespace-nowrap">{{group.id}}</td>
+          <td class="py-3 px-6 text-left">{{group.name}}</td>
+          <td class="py-3 px-6 text-center">
+            <button class="text-primary hover:text-blue-600 mr-3 transition duration-300">Edit</button>
+            <button class="text-red-500 hover:text-red-600 transition duration-300">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
